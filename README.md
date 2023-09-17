@@ -1,4 +1,4 @@
-# maya-playblast-manager
+# Maya playblast manager
 
 Click :point_down: [Youtube Link]
 
