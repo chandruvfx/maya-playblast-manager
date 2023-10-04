@@ -13,6 +13,8 @@
 #   3. Farm submission of all HW2.0 exr rendering, Draft Movs and publishing
 #     the output mov to shotgrid version page of the respective shot 
 #
+#  EXAMPLE RENDER COMMANDLINE FOR MAYA HW2.0
+#  -----------------------------------------
 #  "C:\Program Files\Autodesk\Maya2020\bin\Render.exe" -r hw2 -s 1001 -e 1100 -b 1 -pad 4 -of jpeg 
 #    -rd "Y:\projects\sgtk_dev\sequences\001\001_002\ANM\work\maya\images" 
 #     "Y:\projects\sgtk_dev\sequences\001\001_002\ANM\work\maya\playblast.v001.ma"
@@ -48,12 +50,20 @@ class PlayBlastManager(QtWidgets.QMainWindow):
     Creation/Updation:
       The creation protocol create a dummy fresh camera 
     in maya viewport and generate all the constant/user defined hud texts. 
-    The hud text created in inside a hierarchical groups. The  top group is 
+    The hud text created in inside a hierarchical groups handle. The top group handle is 
     used for parent constraint the hud text to the dummy camera and the second
-    group inside the first one gives moving controls to the users. The creation
+    group handle inside the first handle one gives moving controls to the users. The creation
     protocol then constraint(parent,orient) the dummy camera to the 
-    user selected camera. Several user defined attributes created for to perform
+    user selected camera. Several custom defined attributes created for to perform
     updation process
+
+    While in updation, for the given camera all the  constants and user defined HUD texts
+    has been recognized through the constraints and custom attributes and loaded as same
+    as creational state. Artist were allowed to manipulate the HUD text likewise adding 
+    new one and deleting old stuff. Once the users manipulation done, the old HUD is deleted 
+    and new updated HUD text created. Here the transformation of the second group handle is 
+    preserved as so the newly generated updated text grabs the user transformation values and
+    generate the text on it.
 
     Submission
       The class also responsible for submitting HW2.0 exrs, Draft movs and publishing 
