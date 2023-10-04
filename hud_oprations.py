@@ -162,6 +162,7 @@ class PlayBlastManager(QtWidgets.QMainWindow):
         self.scene_cameras = self.window.findChild(
             QtWidgets.QComboBox, 'load_cameras'
         )
+        # Method call to obtain cameras and load in the combobox
         self.load_maya_scene_camera_dropdown_widget()
         
         self.create_or_update_hud = self.window.findChild(
@@ -254,7 +255,8 @@ class PlayBlastManager(QtWidgets.QMainWindow):
         self.hud_deadline_pool = self.window.findChild(
             QtWidgets.QComboBox, 'hud_deadline_pool'
         ) 
-        
+
+        # Execute mel deadline command to get the pool list and update in combo box
         self.deadline_pools = mel.eval('CallDeadlineCommand("-Pools", false);').split('\n')
         self.load_deadline_available_pools()
         
@@ -275,6 +277,11 @@ class PlayBlastManager(QtWidgets.QMainWindow):
         )
         self.submit_to_deadline_btn.setEnabled(False)
         self.submit_to_deadline_btn.clicked.connect(self.submit_to_deadline)
+      
+        # Load the widgets as it is in the state of while creating process.
+        # Based on the HUD created , during the loading time the GUI made 
+        # the check boxes were on and custom text HUD automatically loaded
+        # for the given camera.
         try:
             self.load_hud()
         except TypeError:
@@ -310,20 +317,26 @@ class PlayBlastManager(QtWidgets.QMainWindow):
         self.load_cameras.currentIndexChanged.connect(self.clear_check_status_hud)
         
     def set_deadline_jobname(self):
-        
+
+        """ Set the deadline job name argument"""
+      
         self.hud_deadline_job_name_widget.setText(
                     self.hud_file_path_widget.text()
         )
         
     def add_treeview_rows(self):
-        
+
+        """Add additional rows in the bottom of the custom treeview"""
+      
         rows = self.hud_custom_text_treeview.model().rowCount()-1
         cols = self.hud_custom_text_treeview.model().columnCount()-1
         index = self.hud_custom_txt_treeview_model.index(rows,cols)
         self.hud_custom_txt_treeview_model.insertRow(index.row()+1)
     
     def remove_treeview_rows(self):
-        
+
+        """ Remove rows from bottom of the custom treeview"""
+      
         rows = self.hud_custom_text_treeview.model().rowCount()-1
         index = self.hud_custom_txt_treeview_model.index(rows,0)
         self.hud_custom_txt_treeview_model.removeRow(index.row())
