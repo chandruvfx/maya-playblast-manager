@@ -345,14 +345,17 @@ class PlayBlastManager(QtWidgets.QMainWindow):
                      hud_toggle_widget,
                      hud_input_widgets
                      ):
-        
+
+        """ Toggle visibility of the widget on and off"""
+                       
         def toggle_visibility(lineedit_widget):
             if  hud_toggle_widget.isChecked():
                 lineedit_widget.setEnabled(True)
             else:
                 lineedit_widget.setEnabled(False)
             
-        
+        # Iterate through all the widgets and toggle
+        # on or off 
         if isinstance(hud_input_widgets, list):
             for hud_input_widget in hud_input_widgets:
                 toggle_visibility(hud_input_widget)
@@ -360,7 +363,10 @@ class PlayBlastManager(QtWidgets.QMainWindow):
             toggle_visibility(hud_input_widgets)
     
     def clear_check_status_hud(self):
-        
+
+        """ Set the check status to false. Load hud called for 
+        preserve the last creation operation state"""
+      
         for hud_widget in self.all_hud_combobox_widgets:
              hud_widget.setChecked(False)  
         try:
