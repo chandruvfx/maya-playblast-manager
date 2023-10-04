@@ -751,18 +751,43 @@ class PlayBlastManager(QtWidgets.QMainWindow):
             self.show_messagebox("No HUD Text to Delete")
             
     def load_hud(self):
-        
+
+        """ Load the already existed HUD text for the given camera
+
+        Function traverse through via each camera and related constraints  
+        collects the cameras, cusom hud text , checkable hud text, primary 
+        group handlers. This method then create two seperate groups for 
+        each cameras. one contains all the constant hud text and another one is 
+        contains custom text. These values ziped together with the respective cameras.
+
+        For constant HUD text, the resulting dictionary iterated and switch on the check 
+        state if something is matches. Similarly, for custom text HUD, the resulting dict 
+        iterated, ingested into the standard model and docked into the treeview"""
+      
         get_user_camera = self.get_user_selected_camera()
-        
+
+        # Get the maya nodes that has a HUD related attributes
         transformation_nodes =[]
         for hud_group in sorted(self.get_transform_nodes()):
             if cmds.attributeQuery("playblast_camera", node=hud_group, exists=True):
                 self.submit_to_deadline_btn.setEnabled(True)
                 transformation_nodes.append(hud_group)
-
+        #  [u'camera1', u'camera2']
         point_constrained_master_camera = []
+      
+        # [[u'playblast_camera', u'created', u'frameno_toggle', u'scene_toggle', 
+        #    u'artist_toggle', u'fps_toggle', u'focal_length', u'resolution_toggle', 
+        #    u'sensor_size', u'pa_ratio_toggle'], 
+        #  [u'playblast_camera', u'created', u'frameno_toggle',
+        #   u'artist_toggle', u'fps_toggle', u'sensor_size']]
         parentconstrained_hud_cameragrp =[] 
+
+        # Having custom attributes
+        #  [[], [u'Textures', u'UV', u'Animation']]
         custom_string_huds_cameragrp = []
+
+        # All camera top group handles 
+        # [u'hud__group1_camera1_Text_HUD', u'hud__group1_camera2_Text_HUD']
         custom_hud_grp = []
         for transformation_node in transformation_nodes:
             if  cmds.pointConstraint(transformation_node, q=True, tl=True):
