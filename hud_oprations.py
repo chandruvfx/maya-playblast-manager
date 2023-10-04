@@ -50,7 +50,8 @@ class PlayBlastManager(QtWidgets.QMainWindow):
     Creation/Updation:
       The creation protocol create a dummy fresh camera 
     in maya viewport and generate all the constant/user defined hud texts. 
-    The hud text created in inside a hierarchical groups of handles. The top group handle is 
+    A surface shader created and assigned to the hud texts. The hud text created
+    in inside a hierarchical groups of handles. The top group handle is 
     used to parent constraint the hud text to the dummy camera and the second
     group handle inside the first handle gives transformation controls to the users. 
     The creation protocol then constraint(parent,orient) the dummy camera to the 
@@ -65,6 +66,10 @@ class PlayBlastManager(QtWidgets.QMainWindow):
     preserved as so the newly generated updated text grabs the user transformation values and
     generate the text on it.
 
+    Deletion:
+      User were allowed to select the top level group to delete the entire network of the 
+    Hud created.
+    
     Submission
       The class also responsible for submitting HW2.0 exrs, Draft movs and publishing 
     it to shotgrid"""
