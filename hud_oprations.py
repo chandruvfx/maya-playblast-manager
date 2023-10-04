@@ -1,9 +1,18 @@
 
-####
 #
-# A Custom Playblast manager tool collects certain inputs from the 
-# users , createtext based HUD displays and render it
-# through hardware 2.0. 
+#
+# A Maya Custom Playblast manager tool obtain constant and user defined custom huds from the artist
+# Create text based HUD displays based upon the camera positioning, also facilitate artist to launch 
+# maya hardware 2.0 renders. The tool also facilitate to creatig movs and publish it to shotgrid 
+# by submiting the jobs in the deadline renderfarm.
+# 
+# The tool do multiple responsibilities. 
+#   1. Create and update text huds for the given camera 
+#   2. Options for Local HW2.0 rendering and submiting Draft mov and publishing 
+#    the output mov to shotgrid version page of the respective shot 
+#   3. Farm submission of all HW2.0 exr rendering, Draft Movs and publishing
+#     the output mov to shotgrid version page of the respective shot 
+
 #"C:\Program Files\Autodesk\Maya2020\bin\Render.exe" -r hw2 -s 1001 -e 1100 -b 1 -pad 4 -of jpeg -rd "Y:\projects\sgtk_dev\sequences\001\001_002\ANM\work\maya\images" "Y:\projects\sgtk_dev\sequences\001\001_002\ANM\work\maya\playblast.v001.ma"
 from __future__ import print_function
 import os 
