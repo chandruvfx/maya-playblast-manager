@@ -914,7 +914,9 @@ class PlayBlastManager(QtWidgets.QMainWindow):
             # cmds.parent(text_hud_transform_grp, text_hud_name )
             
             def create_text(cam_properties, y_pos):
-                
+
+                """ Create and position the MAYA 3d text""" 
+              
                 generate_hud_txt = GenerateHudText(cam_properties)
                 font_obj = generate_hud_txt.generate_text(y_pos)
                 cmds.parent(font_obj, text_hud_transform_grp )
@@ -958,7 +960,8 @@ class PlayBlastManager(QtWidgets.QMainWindow):
             device_aspect_ratio = round(
                                             float(cmds.getAttr("defaultResolution.deviceAspectRatio")), 2
             )
-    
+
+            # Temprory positioning based on aspect ratio
             if device_aspect_ratio == 1.33:
                 screen_left_x = -0.2
                 screen_left_y = 0.145
@@ -1111,7 +1114,11 @@ class PlayBlastManager(QtWidgets.QMainWindow):
                     self.show_messagebox(msg)
     
     def validation_check(self):
-        
+
+        """ Perform various checks on widgets
+
+        Checks whether the widget entries satified all the conditions filled or not"""
+      
         msgs = []
         if not self.is_filled:
             msg = 'Fill and Check all the required fields to proceed'
@@ -1141,7 +1148,9 @@ class PlayBlastManager(QtWidgets.QMainWindow):
         return True
     
     def submit_to_deadline(self):
-        
+
+        """ Method take care Deadline submission task  """
+      
         if self.validation_check():
             start_frame = int(self.hud_start_frame_txt.text())
             end_frame = int(self.hud_end_frame_txt.text())
@@ -1180,7 +1189,9 @@ class PlayBlastManager(QtWidgets.QMainWindow):
         pass
     
     def play_in_rv(self):
-        
+
+        """ Rv related operations"""
+      
         import shutil 
         
         rv = r"C:\Program Files\ShotGrid\RV-2022.2.0\bin\rv.exe"        
@@ -1218,7 +1229,8 @@ class PlayBlastManager(QtWidgets.QMainWindow):
 
 
 class GenerateHudText:
-    
+
+    """ Base Class to create 3d text of maya """ 
     def __init__(self, text):
         
         self.text = text    
@@ -1228,7 +1240,9 @@ class GenerateHudText:
         self.ord_text =  ' '.join(final)
     
     def generate_text(self, y_pos=0):
-        
+
+        """ Generate the polygon text and make it to 2d"""
+      
         cmds.CreatePolygonType()
         
         #Delete all the default materials created during the type
@@ -1259,7 +1273,9 @@ class GenerateHudText:
  
      
 class HardwareRenderOperations:
-    
+
+    """ Maya Harware render 2.0 """
+  
     def __init__(self,
                 batch_name,
                 job_name,
