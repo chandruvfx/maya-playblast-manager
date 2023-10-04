@@ -841,23 +841,27 @@ class PlayBlastManager(QtWidgets.QMainWindow):
                     camera_string_attributes[camera] = custom_hud_key_values
                     
         
-# Result: {u'camera1': [u'playblast_camera', u'created', u'frameno_toggle', 
-#              u'scene_toggle', u'artist_toggle', u'fps_toggle', u'focal_length',
-#              u'resolution_toggle', u'sensor_size', u'pa_ratio_toggle'], 
-#          u'camera2': [u'playblast_camera', u'created', u'frameno_toggle', 
-#                       u'artist_toggle', u'fps_toggle', u'sensor_size']}           
+        # Result: {u'camera1': [u'playblast_camera', u'created', u'frameno_toggle', 
+        #              u'scene_toggle', u'artist_toggle', u'fps_toggle', u'focal_length',
+        #              u'resolution_toggle', u'sensor_size', u'pa_ratio_toggle'], 
+        #          u'camera2': [u'playblast_camera', u'created', u'frameno_toggle', 
+        #                       u'artist_toggle', u'fps_toggle', u'sensor_size']}           
         camera_scalar_attributes =  dict(
             zip(point_constrained_master_camera, 
                 parentconstrained_hud_cameragrp)
         )
-        
+
+        # All the mathching widgets from the collected attributes setted to '
+        # checked state 
         for cam, attributes in camera_scalar_attributes.items():
             if cam in get_user_camera:
                 for attribute in attributes:
                     for widget in self.all_hud_combobox_widgets:
                         if widget.objectName()==attribute:
                             widget.setChecked(True)
-        
+
+        # Retrive the tree view model and update the all the
+        # retrived HUD text
         self.hud_custom_text_treeview.model().removeRows(
                     0, 
                     self.hud_custom_text_treeview.model().rowCount() 
@@ -876,9 +880,13 @@ class PlayBlastManager(QtWidgets.QMainWindow):
                 self.hud_custom_toggle_widget.setChecked(False)  
                         
     def create_update_hud(self):   
-        
+
+        """ Create and also responsible to update the HUD text"""
+      
         def create_hud():
-                  
+
+            """ Create the HUD text Network with necessary constraints"""
+          
             self.hud_camera = self.duplicate_camera()
             self.camera_properties = [
                 self.get_current_frame_no,
@@ -891,6 +899,10 @@ class PlayBlastManager(QtWidgets.QMainWindow):
                 self.get_scene_pixel_aspect_ratio
             ]
 
+            # Create two groups for the user selected camera one is primary 
+            # handler holds the constraints and made connection between production
+            # camera and dummy duplicate camera. second one group handle is to 
+            # provide transform control to the artist
             text_hud_name = self.hud_camera[0]+ "_Text_HUD"
             text_hud_transform_grp = self.hud_camera[0]+ "_user_transform"
             cmds.group( empty=True, name=text_hud_name )
