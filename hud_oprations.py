@@ -789,6 +789,12 @@ class PlayBlastManager(QtWidgets.QMainWindow):
         # All camera top group handles 
         # [u'hud__group1_camera1_Text_HUD', u'hud__group1_camera2_Text_HUD']
         custom_hud_grp = []
+
+        # Collects the Primary HUD group handle and cutstom HUD text keys label
+        # custom_string_huds_cameragrp
+        # Result: [[], [u'Textures', u'UV', u'Animation']] # 
+        # custom_hud_grp
+        # Result: [u'hud__group1_camera1_Text_HUD', u'hud__group1_camera2_Text_HUD'] # 
         for transformation_node in transformation_nodes:
             if  cmds.pointConstraint(transformation_node, q=True, tl=True):
                 point_constrained_master_camera.append(
@@ -807,14 +813,24 @@ class PlayBlastManager(QtWidgets.QMainWindow):
                 )
                 custom_string_huds_cameragrp.append(list(str_huds))
                 custom_hud_grp.append(transformation_node)
-                
+
         custom_hud_txts = {}
         camera_string_attributes = {}
 
+        # Iterate throught the camera, camera contraint primary handles and respective camera
+        # custom hud texts, create dictionary of camera as key and primary handles of groups are values
+        # {u'camera1': {u'hud__group1_camera1_Text_HUD': []}, 
+        #  u'camera2': {u'hud__group1_camera2_Text_HUD': [u'Textures', u'UV', u'Animation']}} 
+        # Camera1 has no custom HUD text where camera2 have list of HUD text
         for master_camera, hud_camera, custom_hud_txt in \
                     zip(point_constrained_master_camera, custom_hud_grp, custom_string_huds_cameragrp):
             custom_hud_txts.setdefault(master_camera,{})[hud_camera] = custom_hud_txt
 
+        # For the given camera and primary hud group handles, it retrive all the custom 
+        # text label and values and form a dictionary . The key here is the camera
+        # and values is the list of dictionaries of text HUD label and value
+        #
+        #  # {u'camera2': [{u'Textures': u'Approved'}, {u'UV': u'Review'}, {u'Animation': u'Review'}]} #
         for camera,hud_cam_key_val in custom_hud_txts.items():
             custom_hud_key_values =[]
             for hud_cam,hud_txt_key_vals in hud_cam_key_val.items():
@@ -824,7 +840,12 @@ class PlayBlastManager(QtWidgets.QMainWindow):
                     )
                     camera_string_attributes[camera] = custom_hud_key_values
                     
-                    
+        
+# Result: {u'camera1': [u'playblast_camera', u'created', u'frameno_toggle', 
+#              u'scene_toggle', u'artist_toggle', u'fps_toggle', u'focal_length',
+#              u'resolution_toggle', u'sensor_size', u'pa_ratio_toggle'], 
+#          u'camera2': [u'playblast_camera', u'created', u'frameno_toggle', 
+#                       u'artist_toggle', u'fps_toggle', u'sensor_size']}           
         camera_scalar_attributes =  dict(
             zip(point_constrained_master_camera, 
                 parentconstrained_hud_cameragrp)
