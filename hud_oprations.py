@@ -413,7 +413,9 @@ class PlayBlastManager(QtWidgets.QMainWindow):
         ]
     
     def set_playblast_folder_names(self):
-        
+
+        """ Update List view with the items of folder names od exrs"""
+      
         self.rv_exrs_folders_model.clear()
         folders = set()
         for root, dirs, files in os.walk(self.images):
@@ -435,6 +437,7 @@ class PlayBlastManager(QtWidgets.QMainWindow):
                                 attr_name,
                                 attr_type,
                                 value):
+
         
         if attr_type == 'string':
              cmds.addAttr( maya_node, longName=attr_name, dataType= attr_type )
