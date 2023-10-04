@@ -610,7 +610,9 @@ class PlayBlastManager(QtWidgets.QMainWindow):
         
     @property
     def get_camera_sensor_size(self):
-        
+
+        """ Returns camera sensor size"""
+      
         if self.sensor_size.isChecked():
             sensorsize_x = cmds.getAttr(self.user_selected_camera +".horizontalFilmAperture") * 25.4
             sensorsize_y = cmds.getAttr(self.user_selected_camera +".verticalFilmAperture") * 25.4
@@ -620,7 +622,9 @@ class PlayBlastManager(QtWidgets.QMainWindow):
     
     @property
     def get_scene_pixel_aspect_ratio(self):
-        
+
+        """ Retuns Pixel aspect ratio"""
+      
         if self.pa_ratio_toggle.isChecked():
         
             return "{} {}".format("Pixel Aspect Ratio: ",
@@ -631,7 +635,9 @@ class PlayBlastManager(QtWidgets.QMainWindow):
     
     @property
     def get_user_custom_hud_text(self):
-        
+
+        """ Returns the model items of tree view"""
+      
         custom_text = []
         if self.hud_custom_toggle_widget.isChecked():
             for row in range(self.hud_custom_text_treeview.model().rowCount()):
@@ -652,7 +658,9 @@ class PlayBlastManager(QtWidgets.QMainWindow):
     
     @property
     def is_checked(self):
-        
+
+        """ Returns true if any checkbox state is true"""
+      
         return True if any(
                     hud.isChecked() 
                     for hud in self.all_hud_combobox_widgets
@@ -660,7 +668,9 @@ class PlayBlastManager(QtWidgets.QMainWindow):
     
     @property
     def is_filled(self):
-        
+
+        """ Return true if lineedit widgets text were non empty"""
+      
         return True if all(
                     hud.text() 
                     for hud in self.all_hud_lineedit_widgets
@@ -668,30 +678,42 @@ class PlayBlastManager(QtWidgets.QMainWindow):
     
     def set_priority_value_to_spinbox(self):
 
+        """ Spinbox number values setted to the resulting
+        value for hte text field"""
+      
         self.hud_priority_counter_qbx_widget.setValue(
             self.hud_deadline_priority_widget.value()
         )
     
     def set_priority_value_to_slider(self):
-        
+
+        """ Text field box resulting value setted to the spin box"""
+      
         self.hud_deadline_priority_widget.setValue(
             self.hud_priority_counter_qbx_widget.value()
         )
     
     def framepertask_value_to_spinbox(self):
-        
+
+         """ frame per task spinbox field value setted to the text box"""
+      
          self.hud_priority_fpt_qbx_widget.setValue(
             self.hud_deadline_framepertask_widget.value()
         )
     
     def framepertask_value_to_slider(self):
-        
+
+        """ frame per task text field value setted to the spinbox"""
+      
         self.hud_deadline_framepertask_widget.setValue(
             self.hud_priority_fpt_qbx_widget.value()
         )
         
     def get_transform_nodes(self):
-        
+
+        """ Returns all the transformation nodes in the maya scene.
+        As so easily filter the groups"""
+      
         # Get all the transform Nodes
         transform_set = set(cmds.listRelatives(cmds.ls(transforms=True), ap=True, ni=True))   
         # Get all the mesh nodes
