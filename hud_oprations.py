@@ -88,9 +88,19 @@ class PlayBlastManager(QtWidgets.QMainWindow):
         self.images = cmds.workspace( q=True, rootDirectory=True ) + "images/"
         if not os.path.exists(self.images): os.makedirs(self.images)
 
+        # Collects all the HUD text related widgets. 
+        # User changes camera in drop down. if the selected camera dont 
+        # have any hud then this make sure all initial state of check box
+        # go off state. if selected cammera has any hud text then the 
+        # only the specifics check box go for on state
         self.all_hud_combobox_widgets =[]
+
+        # Collects all the lineedit widgets and used to check while submission
+        # whether all the mandotary informations entered or not 
         self.all_hud_lineedit_widgets =[]
-        
+
+        # The GUI make sure nill selected any objects in outliner
+        # while opening
         cmds.select( clear=True )
         
         self.hud_folder_path_widget = self.window.findChild(
@@ -120,6 +130,7 @@ class PlayBlastManager(QtWidgets.QMainWindow):
                 QtWidgets.QTableView, 
                 'hud_custom_text'
         )
+        # Create qt item model for user to enter the custom HUD text
         self.hud_custom_txt_treeview_model = QStandardItemModel()
         self.hud_custom_txt_treeview_model.setHorizontalHeaderLabels(['Title Label', 'Text'])
         self.hud_custom_text_treeview.setModel(self.hud_custom_txt_treeview_model)
@@ -143,7 +154,8 @@ class PlayBlastManager(QtWidgets.QMainWindow):
             lambda: self.hide_widgets(self.hud_custom_toggle_widget,
                                       self.custom_toggle_child_list)
         )
-        
+
+        # Push Buttons responsible for add or remove list row
         self.custom_row_add_button.clicked.connect(self.add_treeview_rows)
         self.custom_row_remove_button.clicked.connect(self.remove_treeview_rows)
         
