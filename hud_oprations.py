@@ -68,7 +68,10 @@ class PlayBlastManager(QtWidgets.QMainWindow):
         self.loader = QUiLoader()
         self.ui_file = QFile(__UI_FILE__)
         self.window = self.loader.load(self.ui_file)
+
+        # Grab images directory of the maya workspace 
         self.images = cmds.workspace( q=True, rootDirectory=True ) + "images/"
+        if not os.path.exists(self.images): os.makedirs(self.images)
 
         self.all_hud_combobox_widgets =[]
         self.all_hud_lineedit_widgets =[]
