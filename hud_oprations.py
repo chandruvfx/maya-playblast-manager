@@ -438,7 +438,15 @@ class PlayBlastManager(QtWidgets.QMainWindow):
                                 attr_type,
                                 value):
 
-        
+        """ Create custom attributes for the given node based upon the type passed
+
+        Args:
+            maya_node: maya node object
+            attr_name: name of the attribute string
+            attr_type: name of the attribute type string
+            value: attribute value 
+        """
+                                  
         if attr_type == 'string':
              cmds.addAttr( maya_node, longName=attr_name, dataType= attr_type )
              cmds.setAttr( '%s.%s' %(maya_node, attr_name), value, type="string", lock=True )
@@ -446,14 +454,16 @@ class PlayBlastManager(QtWidgets.QMainWindow):
             cmds.addAttr( maya_node, longName=attr_name, attributeType= attr_type )
             cmds.setAttr( '%s.%s' %(maya_node, attr_name), value, lock=True )
         
-        
-        
     def show_messagebox(self, message):
-        
+
+        """ Qt Messge box to sow message information """
+      
         QtWidgets.QMessageBox.information(self, "Fae Message", message)
         
     def get_camera_transform_nodes(self):
-        
+
+        """ Get all the cameras"""
+      
         cameras = []
         scene_cameras = self.get_scene_cameras()
         for scene_camera in scene_cameras:
@@ -466,17 +476,25 @@ class PlayBlastManager(QtWidgets.QMainWindow):
         return cameras
         
     def load_maya_scene_camera_dropdown_widget(self):
-        
+
+        """ Add the collected camera nodes into the camera dropdown widget"""
+      
         for cameras in self.get_camera_transform_nodes():
             self.scene_cameras.addItem(cameras)
                    
     def load_deadline_available_pools(self):
-        
+
+       """ Load deadline pool to the combobox drpdown"""
+      
         for pools in self.deadline_pools:
             self.hud_deadline_pool.addItem(pools)
             
     def duplicate_camera(self):
-        
+
+        """ Create duplicate camera and set the custom atttributes
+        Returns the cameras 
+        """
+      
         self.user_selected_camera = self.get_user_selected_camera()
         hud_camera = cmds.duplicate( self.user_selected_camera, 
                                     name='hud_%s' %self.user_selected_camera)
@@ -505,7 +523,10 @@ class PlayBlastManager(QtWidgets.QMainWindow):
     
     @property         
     def get_current_maya_file_name(self):
-        
+
+        """ Extract the filename for the file path and return 
+        widget name """
+      
         if self.scene_toggle.isChecked():
             
             filepath = cmds.file(q=True, sn=True)
@@ -517,7 +538,9 @@ class PlayBlastManager(QtWidgets.QMainWindow):
         
     @property
     def get_username(self):
-        
+
+        """ Returns the user name """
+      
         if self.artist_toggle.isChecked():
             return os.environ.get( "USERNAME"), 'artist_toggle'
         else:
@@ -525,7 +548,9 @@ class PlayBlastManager(QtWidgets.QMainWindow):
     
     @property
     def get_scene_fps(self):
-        
+
+        """ Returns the fps of the scene"""
+      
         if self.fps_toggle.isChecked():
         
             label = 'Fps: '
@@ -549,7 +574,9 @@ class PlayBlastManager(QtWidgets.QMainWindow):
     
     @property
     def get_current_frame_no(self):
-        
+
+        """ Returns the Frame No string"""
+      
         if self.frameno_toggle.isChecked():
             return "Frame No", 'frameno_toggle'
         else:
@@ -558,7 +585,9 @@ class PlayBlastManager(QtWidgets.QMainWindow):
             
     @property
     def get_camera_focal_length(self):
-        
+
+        """ Returns camera focal length"""
+      
         if self.focal_length.isChecked():
             return "{} {}".format('Focal Length: ',
                                 cmds.getAttr(self.user_selected_camera +".focalLength")
@@ -568,7 +597,9 @@ class PlayBlastManager(QtWidgets.QMainWindow):
     
     @property
     def get_scene_resolution(self):
-        
+
+        """ Return width and hight of the resolution"""
+      
         if self.resolution_toggle.isChecked():
         
             resx = cmds.getAttr("defaultResolution.width")
