@@ -375,7 +375,9 @@ class PlayBlastManager(QtWidgets.QMainWindow):
             pass
     
     def get_Qfiledialog_selected_file_path(self):
-        
+
+        """ Open the File Dialog for the folder selection""" 
+      
         dialog = QtWidgets.QFileDialog(self)
         dialog.setFileMode(QtWidgets.QFileDialog.Directory)
         if dialog.exec_():
@@ -383,21 +385,29 @@ class PlayBlastManager(QtWidgets.QMainWindow):
             return folder_path
     
     def set_user_selected_directory(self):
-        
+
+        """ User selected folder path setted into the folder path widgets"""
+      
         folder_path = self.get_Qfiledialog_selected_file_path()
         self.hud_folder_path_widget.setText(folder_path)
         
     def set_user_selected_exr_directory(self):
-        
+
+        """ User selected folder path setted into the rv folder path widgets"""
+      
         folder_path = self.get_Qfiledialog_selected_file_path()
         self.rv_folder_path_txt_widget.setText(folder_path)
         
     def get_user_selected_camera(self):
-        
+
+        """ Return the artist selected camera text from the combo box"""
+      
         return self.scene_cameras.currentText()
     
     def get_scene_cameras(self):
-        
+
+        """ Return Scence cameras"""
+      
         return [camera for camera in cmds.ls(cameras=True) \
             if not cmds.camera(camera, q=True, startupCamera=True)
         ]
