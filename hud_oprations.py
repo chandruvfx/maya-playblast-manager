@@ -50,18 +50,18 @@ class PlayBlastManager(QtWidgets.QMainWindow):
     Creation/Updation:
       The creation protocol create a dummy fresh camera 
     in maya viewport and generate all the constant/user defined hud texts. 
-    The hud text created in inside a hierarchical groups handle. The top group handle is 
-    used for parent constraint the hud text to the dummy camera and the second
-    group handle inside the first handle one gives moving controls to the users. The creation
-    protocol then constraint(parent,orient) the dummy camera to the 
+    The hud text created in inside a hierarchical groups of handles. The top group handle is 
+    used to parent constraint the hud text to the dummy camera and the second
+    group handle inside the first handle gives transformation controls to the users. 
+    The creation protocol then constraint(parent,orient) the dummy camera to the 
     user selected camera. Several custom defined attributes created for to perform
     updation process
 
     While in updation, for the given camera all the  constants and user defined HUD texts
-    has been recognized through the constraints and custom attributes and loaded as same
-    as creational state. Artist were allowed to manipulate the HUD text likewise adding 
+    has been recognized through the constraints and custom attributes. The GUI loaded as same
+    as last creational state. Artist were allowed to manipulate the HUD text likewise adding 
     new one and deleting old stuff. Once the users manipulation done, the old HUD is deleted 
-    and new updated HUD text created. Here the transformation of the second group handle is 
+    and new updated HUD text created with the setup. Here the transformation of the second group handle is 
     preserved as so the newly generated updated text grabs the user transformation values and
     generate the text on it.
 
