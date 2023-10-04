@@ -52,7 +52,13 @@ class PlayBlastManager(QtWidgets.QMainWindow):
     used for parent constraint the hud text to the dummy camera and the second
     group inside the first one gives moving controls to the users. The creation
     protocol then constraint(parent,orient) the dummy camera to the 
-    user selected camera.
+    user selected camera. Several user defined attributes created for to perform
+    updation process
+
+    Submission
+      The class also responsible for submitting HW2.0 exrs, Draft movs and publishing 
+    it to shotgrid"""
+  
 
     def __init__(self):
         
