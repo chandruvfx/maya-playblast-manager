@@ -12,8 +12,11 @@
 #    the output mov to shotgrid version page of the respective shot 
 #   3. Farm submission of all HW2.0 exr rendering, Draft Movs and publishing
 #     the output mov to shotgrid version page of the respective shot 
-
-#"C:\Program Files\Autodesk\Maya2020\bin\Render.exe" -r hw2 -s 1001 -e 1100 -b 1 -pad 4 -of jpeg -rd "Y:\projects\sgtk_dev\sequences\001\001_002\ANM\work\maya\images" "Y:\projects\sgtk_dev\sequences\001\001_002\ANM\work\maya\playblast.v001.ma"
+#
+#  "C:\Program Files\Autodesk\Maya2020\bin\Render.exe" -r hw2 -s 1001 -e 1100 -b 1 -pad 4 -of jpeg 
+#    -rd "Y:\projects\sgtk_dev\sequences\001\001_002\ANM\work\maya\images" 
+#     "Y:\projects\sgtk_dev\sequences\001\001_002\ANM\work\maya\playblast.v001.ma"
+#
 from __future__ import print_function
 import os 
 from PySide2.QtUiTools import QUiLoader
@@ -27,13 +30,29 @@ import sgtk
 import subprocess
 import re
 
+# GUI ui file path 
 __UI_FILE__ = os.path.join(
                     os.path.dirname(os.path.abspath(__file__)),
                     "plablast_ui.ui"
 )
 
 class PlayBlastManager(QtWidgets.QMainWindow):
-    
+
+    """Base Class for maya playblast manager. 
+
+    Do several operations likewise hud creations, 
+    place text hud  oriented to camera by creating 
+    constraints and passing necessary properties to 
+    submit deadline jobs
+
+    Creation/Updation:
+      The creation protocol create a dummy fresh camera 
+    in maya viewport and generate all the constant/user defined hud texts. 
+    The hud text created in inside a hierarchical groups. The  top group is 
+    used for parent constraint the hud text to the dummy camera and the second
+    group inside the first one gives moving controls to the users. The creation
+    protocol then constraint(parent,orient) the dummy camera to the 
+    user selected camera.
 
     def __init__(self):
         
