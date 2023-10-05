@@ -7,7 +7,7 @@
 # 
 # The tool do multiple Jobs. 
 #   1. Create and update text huds for the given camera 
-#   2. Options for Local HW2.0 rendering and submiting Draft mov and publishing 
+#   2. Options for Local HW2.0 rendering and submit the Draft mov and publishing 
 #    the output mov to shotgrid version page of the respective shot 
 #   3. Farm submission of all HW2.0 exr rendering, Draft Movs and publishing
 #     the output mov to shotgrid version page of the respective shot 
