@@ -43,5 +43,6 @@ Click :point_down: [Youtube Link]
 ### Folder Path & File name 
  1. Folder path - maya workspace image path where to dump exrs
  2. File Name - User choice of name to the exrs and sub folders
+    
 ![playblast_4](https://github.com/chandruvfx/maya-playblast-manager/assets/45536998/71290bd7-2589-4848-a1b6-ede03e007898)
 
