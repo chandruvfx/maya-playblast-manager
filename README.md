@@ -97,4 +97,8 @@ Example, image showing here for a user need to select the following node to upda
    - Publish Mov - Draft job for mov creation and publishing the generated mov to the shotgrid job created.
    - Submit to Deadline - clicking this submits the configuration to the farm
 
+### RV Controls
 
+Click the double dotted button and select the master folder contains all the playblast version from the dialog box. It loads all the folders inside it. Artist can able to select one or multiple folder item and press play. This action opens up the RV with loaded exrs
+
+![playblast_13](https://github.com/chandruvfx/maya-playblast-manager/assets/45536998/67c8d523-1ca7-4053-9c94-53291ec629fd)
