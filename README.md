@@ -13,16 +13,27 @@ exr's and publish it to the shotgrid.
 The Playblast manager splitted into two sections. One section take care HUD creations and deadline submissions. Second sections take cares RV operations likewise
 Loading all the folders containing the exrs from the given path and allow users to select multiple items of folders in one time and play it. 
 
-## HUD text Rig 
+## HUD Text Rig 
 
 Below Image showcases the constraint rig setup of the HUD text with the cameras. 
 This is how the tool generate the contrains for HUD text groups to travel the camera always. 
 
 ![image](https://github.com/chandruvfx/maya-playblast-manager/assets/45536998/b9628c06-beb7-42af-9864-e6f788d66cef)
 
+## Tool DO's:
+ 
+ The tool can do multiple Jobs. 
+ 
+   1. Create and update text huds for the given camera 
+   2. Do Local HW2.0 rendering , submit the Draft mov and publishes 
+      the output mov to shotgrid version page of the respective shot 
+   3. Farm submit the HW2.0 exr rendering, Draft Movs and publishing
+      the output mov to shotgrid version page of the respective shot 
 
 
+## Video Demo
 
+To explore more about how the tool is working, please click the below link
 
 Click :point_down: [Youtube Link]
 
