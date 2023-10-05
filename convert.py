@@ -1,3 +1,7 @@
+# Creating the Draft job for deadline. 
+# Takes the exr renders as inputs. loop through each exrs
+# aply the gamma, encode to the mov and make movie
+
 import sys
 import Draft
 from DraftParamParser import (ReplaceFilenameHashesWithNumber,
