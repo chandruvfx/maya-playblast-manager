@@ -1,12 +1,11 @@
 
 #
 #
-# A Maya Custom Playblast manager tool obtain constant and user defined custom huds from the artist
-# Create text based HUD displays based upon the camera positioning, also facilitate artist to launch 
-# maya hardware 2.0 renders. The tool also facilitate to creatig movs and publish it to shotgrid 
-# by submiting the jobs in the deadline renderfarm.
+# A Maya Custom Playblast manager tool create constant and user defined custom text HUDS. 
+# This tool also facilitate artists to launch  maya hardware 2.0 renders, creatig movs of the 
+# resulting exrs and publish the mov to shotgrid. 
 # 
-# The tool do multiple responsibilities. 
+# The tool do multiple Jobs. 
 #   1. Create and update text huds for the given camera 
 #   2. Options for Local HW2.0 rendering and submiting Draft mov and publishing 
 #    the output mov to shotgrid version page of the respective shot 
