@@ -4,6 +4,16 @@ import subprocess
 import sgtk
 
 class SubmitToDeadline:
+
+    """Responsibe for deadline job submission
+
+    Write Job_info.job and Plugin_info.job files for the 
+    requesting renders
+    Take care three submission:
+        1. HW2.0 exr 
+        2. Draft Job
+        3. Publishing Draft job to shotgrid
+    """
     
     def __init__(self,
                  batch_name = '',
@@ -62,12 +72,23 @@ class SubmitToDeadline:
 
     @staticmethod
     def __crete_directory(folder_path):
-            
+
+            """ Create folders if not exist"""
+        
             dir_exist = os.path.exists(folder_path)
             if not dir_exist:
                 os.makedirs(folder_path)
     
     def __write_job_file(self, filename, data, job_type=''):
+
+        """ Write the passing filename into .job file
+
+        Args:
+            filename: name of the file 
+            job_type: which job type. draft,exr or version publish
+
+        Returns:
+            job file path"""
         
         dl_job_dir =  self.maya_tmp_dir + \
                           "/%s/deadline_job_files" %job_type
@@ -82,6 +103,15 @@ class SubmitToDeadline:
         return job_file
    
     def __file_job_info(self, job_type='', dep_job_id=''):
+
+        """ Write the job_info.job for any given job type
+
+        Args: 
+            job_type: which job type. draft,exr or version publish
+            dep_job_id: deadline job dependent id if any exist
+
+        Returns:
+            job info file path"""
         
         if job_type == 'maya':
             plugin = 'MayaBatch'
@@ -122,7 +152,17 @@ class SubmitToDeadline:
     def __plugin_job_info(self, job_type='', 
                         exr_path='',
                         mov_path=''):
-    
+
+        """ Write the plugin_info.job for any given job type
+
+        Args: 
+            job_type: which job type. draft,exr or version publish
+            exr_path: hw2.0 exr path
+            mov_path: draft job compleed mov path
+
+        Returns:
+            plugin info file path"""
+                            
         if job_type == 'maya':
                 dl_plugin_job_info = {
                     "OutputFilePath": os.path.join(self.folder_path ,
@@ -162,6 +202,13 @@ class SubmitToDeadline:
     
 
     def send_to_farm(self, auxiliary_files = None):
+
+        """ Execute the deadline command 
+        
+        Submit the job and return the dealine job id
+        
+        Returns:
+            job_id """
         
         dl_path = os.environ['DEADLINE_PATH'] 
         dl_path = dl_path.replace(r"/", "//") + "//deadlinecommand.exe"
@@ -180,6 +227,18 @@ class SubmitToDeadline:
     
     def submit(self):
 
+        """ Perform submission of various job types
+
+        if the publish mov parameter flag passed then the 
+        a draft job is created and passed to deadline farm.
+        The resulting job holds the job id of the HW2.0 job.
+        A publish Shotgrid is created and passed to renderfarm.
+        It holds the job id of the draft job
+
+        Once all the submission done a pop up window appears and 
+        show the job id messages
+        """
+        
         if self.farm_hardware_render:
             self.__file_job_info(job_type='maya')
             self.__plugin_job_info(job_type='maya')
