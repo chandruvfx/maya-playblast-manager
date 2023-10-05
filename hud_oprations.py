@@ -5,11 +5,11 @@
 # This tool also facilitate artists to launch  maya hardware 2.0 renders, creatig movs of the 
 # resulting exrs and publish the mov to shotgrid. 
 # 
-# The tool do multiple Jobs. 
+# The tool can do multiple Jobs. 
 #   1. Create and update text huds for the given camera 
-#   2. Options for Local HW2.0 rendering and submit the Draft mov and publishing 
+#   2. Do Local HW2.0 rendering , submit the Draft mov and publishes 
 #    the output mov to shotgrid version page of the respective shot 
-#   3. Farm submission of all HW2.0 exr rendering, Draft Movs and publishing
+#   3. Farm submit the HW2.0 exr rendering, Draft Movs and publishing
 #     the output mov to shotgrid version page of the respective shot 
 #
 #  EXAMPLE RENDER COMMANDLINE FOR MAYA HW2.0
@@ -1148,7 +1148,10 @@ class PlayBlastManager(QtWidgets.QMainWindow):
     
     def submit_to_deadline(self):
 
-        """ Method take care Deadline submission task  """
+        """ Method take care Deadline submission task
+        
+        Collects all the deadline based widget values and 
+        pass to the Hardware rendering function"""
       
         if self.validation_check():
             start_frame = int(self.hud_start_frame_txt.text())
@@ -1189,7 +1192,10 @@ class PlayBlastManager(QtWidgets.QMainWindow):
     
     def play_in_rv(self):
 
-        """ Rv related operations"""
+        """ Rv related operations
+        
+        Update the listview with the folder containing the exrs
+        User can multi select the items and trigger the play"""
       
         import shutil 
         
@@ -1230,8 +1236,15 @@ class PlayBlastManager(QtWidgets.QMainWindow):
 class GenerateHudText:
 
     """ Base Class to create 3d text of maya """ 
+  
     def __init__(self, text):
+
+        """Convert text to ord characters
         
+        Maya 3D text could not recogize the direct string text. 
+        It should needed to converted into the ord in order to 
+        recognize by the maya 3D text"""
+      
         self.text = text    
         final = list()
         for char in str(self.text):
@@ -1240,7 +1253,8 @@ class GenerateHudText:
     
     def generate_text(self, y_pos=0):
 
-        """ Generate the polygon text and make it to 2d"""
+        """ Generate the polygon text, remove default shaders
+        remover extrude polygons and make it as 2D text"""
       
         cmds.CreatePolygonType()
         
@@ -1258,6 +1272,10 @@ class GenerateHudText:
                 type_extrude = type_node
         cmds.setAttr('%s.fontSize' %self.font_type_node, 0.008)
         cmds.setAttr('%s.enableExtrusion'  %type_extrude, 0)
+
+        # A frame no is the frame counter it is automatically comes with
+        # 3d maya text so omiting it
+      
         if not self.text.startswith('Frame No'):
             cmds.setAttr('%s.textInput'  %self.font_type_node, self.ord_text, type='string')
             cmds.move(0, y_pos, -0.45, self.font_object_name)
@@ -1273,7 +1291,16 @@ class GenerateHudText:
      
 class HardwareRenderOperations:
 
-    """ Maya Harware render 2.0 """
+    """ Do Job of Maya Harware render 2.0 
+
+    class register several render global settings fo HW2.0 
+    Class do two jobs
+    if "local Hardware 2.0" is selected in gui then it register a MEL 
+    post command in the maya rendersettings, open a new terminal and
+    execute the hardware rendering job
+    
+    if "local Hardware 2.0" no selected then it submit the HW2.0 to the 
+    farm"""
   
     def __init__(self,
                 batch_name,
@@ -1311,7 +1338,10 @@ class HardwareRenderOperations:
         
         
     def __set_hardware_settings(self):
-        
+
+        """Set various render global settings
+        """
+      
         cmds.setAttr('defaultRenderGlobals.ren', 'mayaHardware2', type='string')
         cmds.setAttr('defaultRenderGlobals.imageFormat', 40)
         cmds.setAttr('defaultRenderGlobals.deadlineStrictErrorChecking', 1)
@@ -1339,7 +1369,9 @@ class HardwareRenderOperations:
         
         
     def __create_output_directory(self):
-        
+
+        """ Create folders if not exist"""
+      
         self.output_folder = os.path.join(self.folder_path, self.file_name)
         
         if not os.path.exists(self.output_folder):
@@ -1347,7 +1379,10 @@ class HardwareRenderOperations:
         return self.output_folder
       
     def do_render(self):
-        
+
+        """ A swith util method determines which protocol 
+        needed to be executed. local or farm render"""
+      
         cmds.file(save=True)
         if not self.submit_farm: 
             self.do_batch_render() 
@@ -1356,6 +1391,9 @@ class HardwareRenderOperations:
     
     def do_batch_render(self):
 
+        """ Register mel post job command and trigger the 
+        local hardware rendering 2.0 from the new command prompt"""
+      
         args = 'batch_name=\'%s\',' %self.batch_name
         args += 'job_name=\'%s\',' %self.job_name
         args += 'comment=\'%s\',' %self.comments
@@ -1409,7 +1447,9 @@ class HardwareRenderOperations:
         os.system("start /wait cmd /k %s" %cmd)
 
     def __submit_to_deadline(self):
-        
+
+        """ Submit the HW2.0 to deadline"""
+      
         cmds.setAttr('defaultRenderGlobals.postMel', ' ', type='string')
         from . import submit_to_deadline
         reload(submit_to_deadline)
@@ -1433,9 +1473,8 @@ class HardwareRenderOperations:
                     farm_hardware_render=self.submit_farm,
         )
         submit_to_deadline.submit()
-        
-        
         pass
-           
-a = PlayBlastManager()
-a.window.show()
+
+
+playblast_manager = PlayBlastManager()
+playblast_manager.window.show()
