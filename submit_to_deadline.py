@@ -247,7 +247,8 @@ class SubmitToDeadline:
             self.msgs += "Deadline Maya Job ID=%s\n" %str(job_id).split("=")[-1]
         
             self.deadline_files[:] = []
-            self.__file_job_info(job_type='draft', dep_job_id=job_id.split('=')[-1])
+            self.__file_job_info(job_type='draft', 
+                                 dep_job_id=job_id.split('=')[-1])
         else:
             
             self.__file_job_info(job_type='draft')
@@ -307,18 +308,24 @@ sg.upload("Version", version_id['id'], r'%s', field_name="sg_uploaded_movie")
                                         "playblast/" + project['name'] + "/" + \
                                         seq + "/" + shot['name'] 
             self.__crete_directory(maya_playblast_version_py_dir) 
-            maya_playblast_version_py_file =  os.path.join(maya_playblast_version_py_dir, self.file_name + ".py")
+            maya_playblast_version_py_file =  os.path.join(
+                        maya_playblast_version_py_dir, 
+                        self.file_name + ".py"
+            )
             with open(maya_playblast_version_py_file, "w") as flipbook_file:
                 flipbook_file.write(publish_script)
 
             self.deadline_files[:] = []
             
-            self.__file_job_info(job_type='version_publish', dep_job_id=draft_job_id.split('=')[-1])
+            self.__file_job_info(job_type='version_publish', 
+                                 dep_job_id=draft_job_id.split('=')[-1])
             self.__plugin_job_info(job_type='version_publish', 
                             exr_path=full_path, 
                             mov_path=mov_path)
             
-            self.maya_playblast_version_py_files.append(maya_playblast_version_py_file)
+            self.maya_playblast_version_py_files.append(
+                        maya_playblast_version_py_file
+            )
             version_publish_job_id = self.send_to_farm(
                 auxiliary_files=self.maya_playblast_version_py_files
             )
