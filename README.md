@@ -44,5 +44,57 @@ Click :point_down: [Youtube Link]
  1. Folder path - maya workspace image path where to dump exrs
  2. File Name - User choice of name to the exrs and sub folders
     
-![playblast_4](https://github.com/chandruvfx/maya-playblast-manager/assets/45536998/71290bd7-2589-4848-a1b6-ede03e007898)
+ ![playblast_4](https://github.com/chandruvfx/maya-playblast-manager/assets/45536998/71290bd7-2589-4848-a1b6-ede03e007898)
+ 
+ Clicking the Double dotted button open the file browser dialog, Artist alternatively allowed to select a folder path from here
+ 
+ ![playblast_12](https://github.com/chandruvfx/maya-playblast-manager/assets/45536998/48af98d3-4ba2-493c-acc1-581049f33462)
+
+### Camera List
+
+Maya scene cameras listed here
+
+![playblast_5](https://github.com/chandruvfx/maya-playblast-manager/assets/45536998/40d724f9-ea36-42f6-a50c-2ea7b97daf7d)
+
+### Constant HUDs
+
+User selected checkbox HUDs, created into scene file
+
+![playblast_6](https://github.com/chandruvfx/maya-playblast-manager/assets/45536998/69c386be-f825-4108-aef9-73648b1f4525)
+
+### Custom HUD Text
+
+Enable the check box allows the user to add or remove rows in the widget. Once added users can able to enter text of HUD label and HUD text. It gonna created as HUD text
+
+![playblast_7](https://github.com/chandruvfx/maya-playblast-manager/assets/45536998/1ca2d452-33c6-43d1-b223-2c9463d7c8c2)
+
+### Generate/update and Delete
+
+Push buttons generate/update the HUD text For updating and deleting a specific camera HUD you need to choose primary group handle of the camera.
+
+![playblast_8](https://github.com/chandruvfx/maya-playblast-manager/assets/45536998/e0ec2814-61de-425a-860a-aa575b50422b)
+
+Example, image showing here for a user need to select the following node to update or delete the hud for camera1
+![playblast_9](https://github.com/chandruvfx/maya-playblast-manager/assets/45536998/671425e3-e25a-4c96-a91c-99da582da8be)
+
+### Deadline Section
+
+![playblast_10](https://github.com/chandruvfx/maya-playblast-manager/assets/45536998/3c0ad861-5229-46e8-a8df-c66c0646ddf6)
+  
+  - Job Name - Deadline job name. Default it is the cache name plus version name. Artist can enter his own preferred name
+  - Comment - Valid textual deadline comments
+  - Pool & Secondary pool - Drop-Down consist of deadline pools.
+  - Group - Deadline Groups
+  - Start Frame & End Frame - Specify the start and end frame of the scene to render
+  - Priority - Determine Deadline Priority
+  - Frames-Per-Task - Determine Chunk size aka the split of frame ranges into the machines
+
+### Submission
+
+![playblast_11](https://github.com/chandruvfx/maya-playblast-manager/assets/45536998/2c2a8a91-a825-4f44-b390-0a26c59ce396)
+
+   - Local Render Hardware 2.0 - If enabled render the exr files through a commandline else it submitted to deadline
+   - Publish Mov - Draft job for mov creation and publishing the generated mov to the shotgrid job created.
+   - Submit to Deadline - clicking this submits the configuration to the farm
+
 
